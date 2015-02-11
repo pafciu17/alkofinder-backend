@@ -69,4 +69,18 @@ Storage.prototype.insertOrUpdate = function(item) {
     });
 };
 
+Storage.prototype.get = function(searchCondition) {
+    var self = this;
+    searchCondition = searchCondition || {};
+    return new Promise(function(resolve, reject) {
+        self.collection.find(searchCondition).toArray(function(err, items) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(items);
+            }
+        });
+    });
+}
+
 module.exports = Storage;
