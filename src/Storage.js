@@ -9,7 +9,7 @@ Storage.prototype._prepareConnection = function(db, collectionName) {
     this.collection = this.db.collection(collectionName);
     var self = this;
     return new Promise(function(resolve, reject) {
-        self.collection.ensureIndex({ Name: 1 }, { unique: true }, function(err) {
+        self.collection.ensureIndex({ Address: 1 }, { unique: true }, function(err) {
             if (err) {
                 reject(err);
             } else {
@@ -50,7 +50,8 @@ Storage.prototype.removeAll = function() {
 Storage.prototype.insertOrUpdate = function(item) {
     var self = this;
     return new Promise(function(resolve, reject) {
-        self.collection.update({ Name: item.Name },
+        delete item.lastModified;
+        self.collection.update({ Address: item.Address },
             {
                 $set: item,
                 $currentDate: {
@@ -59,13 +60,15 @@ Storage.prototype.insertOrUpdate = function(item) {
             }, {
                 upsert: true,
                 w: 1
-            }, function(err, results) {
-            if (err) {
-                reject(err)
-            } else {
-                resolve();
+            },
+            function(err, results) {
+                if (err) {
+                    reject(err)
+                } else {
+                    resolve();
+                }
             }
-        });
+        );
     });
 };
 
