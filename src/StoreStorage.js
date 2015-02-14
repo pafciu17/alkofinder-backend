@@ -1,10 +1,13 @@
 var MongoClient = require('mongodb').MongoClient,
     Promise = require('promise');
 
-Storage = function() {
+var mongoDbUrl = 'mongodb://127.0.0.1:27017/test',
+    collectionName = 'stores';
+
+function StoreStorage() {
 };
 
-Storage.prototype._prepareConnection = function(db, collectionName) {
+StoreStorage.prototype._prepareConnection = function(db, collectionName) {
     this.db = db;
     this.collection = this.db.collection(collectionName);
     var self = this;
@@ -19,7 +22,7 @@ Storage.prototype._prepareConnection = function(db, collectionName) {
     });
 };
 
-Storage.prototype.init = function(mongoDbUrl, collectionName) {
+StoreStorage.prototype.init = function() {
     var self = this;
     return new Promise(function(resolve, reject) {
         MongoClient.connect(mongoDbUrl, function(err, db) {
@@ -34,7 +37,7 @@ Storage.prototype.init = function(mongoDbUrl, collectionName) {
     });
 };
 
-Storage.prototype.removeAll = function() {
+StoreStorage.prototype.removeAll = function() {
     var self = this;
     return new Promise(function(resolve, reject) {
         self.collection.remove({}, function(err) {
@@ -47,7 +50,7 @@ Storage.prototype.removeAll = function() {
     });
 };
 
-Storage.prototype.insertOrUpdate = function(item) {
+StoreStorage.prototype.insertOrUpdate = function(item) {
     var self = this;
     return new Promise(function(resolve, reject) {
         delete item.lastModified;
@@ -72,7 +75,7 @@ Storage.prototype.insertOrUpdate = function(item) {
     });
 };
 
-Storage.prototype.get = function(searchCondition) {
+StoreStorage.prototype.get = function(searchCondition) {
     var self = this;
     searchCondition = searchCondition || {};
     return new Promise(function(resolve, reject) {
@@ -86,4 +89,4 @@ Storage.prototype.get = function(searchCondition) {
     });
 }
 
-module.exports = Storage;
+module.exports = StoreStorage;
