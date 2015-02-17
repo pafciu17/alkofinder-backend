@@ -4,7 +4,6 @@ var MongoClient = require('mongodb').MongoClient,
 var mongoDbUrl = 'mongodb://127.0.0.1:27017/test';
 
 function DBConnectionManager() {
-    console.log('creates');
     this.db = null;
 };
 

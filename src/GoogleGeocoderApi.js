@@ -2,7 +2,6 @@ var request = require('request-json'),
     Promise = require('promise');
 
 var client = request.createClient('https://maps.googleapis.com/');
-
 function GoogleGeocoderApi(){};
 
 GoogleGeocoderApi.prototype._deriveCoordinates = function(body) {
