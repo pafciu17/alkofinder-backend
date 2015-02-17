@@ -5,7 +5,6 @@ var Promise = require('promise'),
     dbConnectionManager = require('../src/DBConnectionManager');
 
 var alkoStoreBackend = new AlkoStoreBackend(),
-    geocoderApi = new GoogleGeocoderApi(),
     storeStorage = new StoreStorage();
 
 dbConnectionManager.getDB().then(function(db) {
