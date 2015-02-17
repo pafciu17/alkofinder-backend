@@ -55,7 +55,6 @@ StoreStorage.prototype.insertOrUpdate = function(item) {
                 w: 1
             },
             function(err, results) {
-                console.log(err);
                 if (err) {
                     reject(err)
                 } else {
