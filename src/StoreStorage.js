@@ -56,6 +56,7 @@ StoreStorage.prototype.insertOrUpdate = function(item) {
             },
             function(err, results) {
                 if (err) {
+                    console.log('err');
                     reject(err)
                 } else {
                     resolve();
@@ -71,6 +72,7 @@ StoreStorage.prototype.get = function(searchCondition) {
     return new Promise(function(resolve, reject) {
         self.collection.find(searchCondition).toArray(function(err, items) {
             if (err) {
+                console.log(err);
                 reject(err);
             } else {
                 resolve(items);
