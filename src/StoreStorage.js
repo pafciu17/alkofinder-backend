@@ -1,16 +1,12 @@
-var MongoClient = require('mongodb').MongoClient,
-    Promise = require('promise');
+var Promise = require('promise');
 
-var mongoDbUrl = 'mongodb://127.0.0.1:27017/test',
-    collectionName = 'stores';
-
+var collectionName = 'stores';
 function StoreStorage() {
 };
 
-StoreStorage.prototype._prepareConnection = function(db, collectionName) {
-    this.db = db;
-    this.collection = this.db.collection(collectionName);
+StoreStorage.prototype._prepareCollection = function(collectionName) {
     var self = this;
+    self.collection = self.db.collection(collectionName);
     return new Promise(function(resolve, reject) {
         self.collection.ensureIndex({ Address: 1 }, { unique: true }, function(err) {
             if (err) {
@@ -22,18 +18,11 @@ StoreStorage.prototype._prepareConnection = function(db, collectionName) {
     });
 };
 
-StoreStorage.prototype.init = function() {
+StoreStorage.prototype.init = function(db) {
     var self = this;
+    self.db = db;
     return new Promise(function(resolve, reject) {
-        MongoClient.connect(mongoDbUrl, function(err, db) {
-            if (err) {
-                reject(err)
-            } else {
-                self._prepareConnection(db, collectionName).then(function() {
-                    resolve();
-                });
-            }
-        });
+        resolve(self._prepareCollection(collectionName));
     });
 };
 
@@ -52,6 +41,7 @@ StoreStorage.prototype.removeAll = function() {
 
 StoreStorage.prototype.insertOrUpdate = function(item) {
     var self = this;
+    console.log('inserting ' + self);
     return new Promise(function(resolve, reject) {
         delete item.lastModified;
         self.collection.update({ Address: item.Address },
@@ -65,6 +55,7 @@ StoreStorage.prototype.insertOrUpdate = function(item) {
                 w: 1
             },
             function(err, results) {
+                console.log(err);
                 if (err) {
                     reject(err)
                 } else {
