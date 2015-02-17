@@ -1,7 +1,6 @@
 var Promise = require('promise'),
     StoreStorage = require('../src/StoreStorage'),
     AlkoStoreBackend = require('../src/AlkoStoreBackend'),
-    GoogleGeocoderApi = require('../src/GoogleGeocoderApi'),
     dbConnectionManager = require('../src/DBConnectionManager');
 
 var alkoStoreBackend = new AlkoStoreBackend(),
