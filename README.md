@@ -2,7 +2,7 @@
 
 The backend script for fetching alko stores coordinates and storing them within mongodb.
 
-Structure:
+Structure
 ----------
 
 - scripts/storeFetcher.js: fetch stores and save those to db
