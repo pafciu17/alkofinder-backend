@@ -8,7 +8,7 @@ StoreStorage.prototype._prepareCollection = function(collectionName) {
     var self = this;
     self.collection = self.db.collection(collectionName);
     return new Promise(function(resolve, reject) {
-        self.collection.ensureIndex({ Address: 1 }, { unique: true }, function(err) {
+        self.collection.ensureIndex({ Name: 1 }, { unique: true }, function(err) {
             if (err) {
                 reject(err);
             } else {
@@ -41,10 +41,9 @@ StoreStorage.prototype.removeAll = function() {
 
 StoreStorage.prototype.insertOrUpdate = function(item) {
     var self = this;
-    console.log('inserting ' + self);
     return new Promise(function(resolve, reject) {
         delete item.lastModified;
-        self.collection.update({ Address: item.Address },
+        self.collection.update({ Name: item.Name },
             {
                 $set: item,
                 $currentDate: {
