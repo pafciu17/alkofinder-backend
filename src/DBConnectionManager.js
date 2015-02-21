@@ -1,7 +1,7 @@
 var MongoClient = require('mongodb').MongoClient,
     Promise = require('promise');
 
-var mongoDbUrl = 'mongodb://127.0.0.1:27017/test';
+var mongoDbUrl = 'mongodb://127.0.0.1:27017/stores';
 
 function DBConnectionManager() {
     this.db = null;
