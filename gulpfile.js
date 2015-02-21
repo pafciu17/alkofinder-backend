@@ -3,6 +3,6 @@ var gulp = require('gulp'),
     deploymentTarget = require('./private/deploymentTarget');
 
 gulp.task('deploy', function() {
-    gulp.src(['scripts/**', 'src/**', 'package.json'])
+    gulp.src(['scripts/**', 'src/**', 'package.json', 'server.js'])
         .pipe(rsync(deploymentTarget));
 });
