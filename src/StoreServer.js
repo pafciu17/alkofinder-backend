@@ -41,5 +41,4 @@ StoreServer.prototype.init = function(conf) {
     });
 };
 
-
 module.exports = StoreServer
