@@ -8,6 +8,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.11.2",
     "mongodb": "^1.4.30",
     "promise": "^6.1.0",
     "request-json": "^0.5.2"
