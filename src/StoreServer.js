@@ -17,6 +17,7 @@ StoreServer.prototype._setRouting = function() {
     var self = this;
     self.app.get('/', function(req, res) {
         self.storeStorage.get().then(function(stores) {
+            res.setHeader("Access-Control-Allow-Origin", "*");
             res.json(stores);
         });
     });
